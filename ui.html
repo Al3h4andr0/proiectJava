@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Address Correction</title>
+</head>
+<body>
+    <h1>Correct Your Address</h1>
+    <form id="addressForm">
+        <label for="country">Country:</label><br>
+        <input type="text" id="country" name="country"><br>
+        <label for="state">State:</label><br>
+        <input type="text" id="state" name="state"><br>
+        <label for="city">City:</label><br>
+        <input type="text" id="city" name="city"><br>
+        <input type="submit" value="Submit">
+    </form>
+    <p id="result"></p>
+    <script>
+        document.getElementById('addressForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+            var country = document.getElementById('country').value;
+            var state = document.getElementById('state').value;
+            var city = document.getElementById('city').value;
+            fetch('http://localhost:8080/correctAddress?country=' + country + '&state=' + state + '&city=' + city)
+                .then(response => response.json())
+                .then(data => document.getElementById('result').textContent = JSON.stringify(data));
+        });
+    </script>
+</body>
+</html>
